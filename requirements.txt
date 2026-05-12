@@ -1,0 +1,4 @@
+customtkinter>=5.2.2
+tkinterdnd2>=0.4.3
+fonttools[woff]>=4.61.1
+brotli>=1.2.0
