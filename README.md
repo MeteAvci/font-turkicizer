@@ -2,10 +2,23 @@
 
 **High-precision localization for modern typography.**
 
-> *"I assess the power of a will by how much resistance, pain, torture it endures and knows how to turn to its advantage."*  
+[![v0.2.0](https://img.shields.io/badge/v0.2.0-FFD700?style=for-the-badge&logo=github&logoColor=black)](https://github.com/MeteAvci/font-turkicizer/releases/latest)
+[![License](https://img.shields.io/badge/MIT-4CAF50?style=for-the-badge&logoColor=white)](./LICENSE)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![CustomTkinter](https://img.shields.io/badge/CustomTkinter-2c3e50?style=for-the-badge&logo=python&logoColor=white)](https://github.com/TomSchimansky/CustomTkinter)
+[![FontTools](https://img.shields.io/badge/FontTools-FF5722?style=for-the-badge&logo=fonttools&logoColor=white)](https://github.com/fonttools/fonttools)
+
+> *"Improving the style means improving the thought, and nothing else!"*  
 > — Friedrich Nietzsche
 
 ![Font Turkicizer Preview](assets/preview.png)
+
+### 📥 Download Portable v0.2.0
+Ready-to-use binaries for desktop:
+*   **[Windows Portable (.zip)](https://github.com/MeteAvci/font-turkicizer/releases/download/v0.2.0/FontTurkicizer-v0.2.0-windows.zip)** 🪟
+*   **[Linux Portable (.tar.gz)](https://github.com/MeteAvci/font-turkicizer/releases/download/v0.2.0/FontTurkicizer-v0.2.0-linux.tar.gz)** 🐧
+
+---
 
 **Font Turkicizer** is a high-performance typography engine designed to eliminate repetitive digital labor. No bloated frameworks. No unnecessary dependencies. Just a tool that works.
 
@@ -16,8 +29,15 @@
 
 **Modern tipografi için yüksek hassasiyetli yerelleştirme motoru.**
 
-> *"Bir iradenin gücünü, ne kadar dirence, acıya, işkenceye dayanabildiğine ve bunları kendi yararına çevirmeyi bildiğine göre değerlendiririm."*  
+> *"Stili geliştirmek, düşünceyi geliştirmek demektir; başka da hiçbir şey değil!"*  
 > — Friedrich Nietzsche
+
+### 📥 Taşınabilir v0.2.0 İndir
+Masaüstü için hazır uygulamalar:
+*   **[Windows Taşınabilir (.zip)](https://github.com/MeteAvci/font-turkicizer/releases/download/v0.2.0/FontTurkicizer-v0.2.0-windows.zip)** 🪟
+*   **[Linux Taşınabilir (.tar.gz)](https://github.com/MeteAvci/font-turkicizer/releases/download/v0.2.0/FontTurkicizer-v0.2.0-linux.tar.gz)** 🐧
+
+---
 
 **Font Turkicizer**, tekrarlayan dijital işleri ortadan kaldırmak için tasarlanmış yüksek performanslı bir tipografi aracıdır. Şişirilmiş framework yok. Gereksiz bağımlılık yok. Sadece çalışan bir motor.
 
@@ -34,7 +54,7 @@
 
 ---
 
-## 🚀 Kullanım
+## 🚀 Kullanım (Kaynaktan)
 
 ```bash
 pip install -r requirements.txt
@@ -45,7 +65,7 @@ python3 main.py
 
 ## 👤 Geliştirici
 
-**[Mete Avcı](https://github.com/MeteAvci)** tarafından **AI Final Boss aka ÇeteGPT** ile birlikte geliştirildi
+**[Mete Avcı](https://github.com/MeteAvci)** tarafından **[AI Final Boss aka ÇeteGPT](https://github.com/MeteAvci/.gemini)** ile birlikte geliştirildi
 
 [Me the Tech](https://methetech.com)'in bir parçası – AI & otomasyon stüdyosu
 
@@ -64,15 +84,15 @@ Yalnızca kişisel ve yasal kullanım içindir. Telif haklı yazı tiplerinin iz
 *   **Official Turkish Lira Symbol:** Constructs the Turkish Lira symbol (`₺` - `U+20BA`) matching the source font's aesthetic.
 *   **Industrial Drag & Drop:** Effortlessly process individual files (`.ttf`, `.otf`, `.woff`, `.woff2`) or entire directories.
 *   **Dual-Language Interface:** Full support for Turkish and English localized controls.
-*   **Web-Ready Export:** Optimized output for WOFF2, TTF, OTF, and WOFF formats.
+*   **Web-Ready Export:** Optimized output for WOFF2, TTF, OTF and WOFF formats.
 
 ---
 
-## 🛠️ Installation & Usage
+## 🛠️ Installation & Usage (From Source)
 
 **1. Clone & Install:**
 ```bash
-git clone https://github.com/methetech/font-turkicizer.git
+git clone https://github.com/MeteAvci/font-turkicizer.git
 cd font-turkicizer
 pip install -r requirements.txt
 ```
@@ -92,7 +112,7 @@ Font Turkicizer leverages `fontTools` to perform non-destructive composite glyph
 
 ## 👤 Author
 
-Developed by [Mete Avcı](https://github.com/MeteAvci)**.
+Developed by **[Mete Avcı](https://github.com/MeteAvci)** and **[AI Final Boss aka ÇeteGPT](https://github.com/MeteAvci/.gemini)**.
 
 [![X](https://img.shields.io/badge/@HorizonHacker-000?logo=x)](https://x.com/HorizonHacker)
 [![LinkedIn](https://img.shields.io/badge/meteee-0A66C2?logo=linkedin)](https://linkedin.com/in/meteee)
