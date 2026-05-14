@@ -7,6 +7,7 @@ import re
 import traceback
 import logging
 import customtkinter as ctk
+import tkinter as tk
 from tkinter import filedialog, messagebox
 from tkinterdnd2 import TkinterDnD, DND_FILES
 from fontTools.ttLib import TTFont
@@ -16,6 +17,15 @@ from fontTools.pens.ttGlyphPen import TTGlyphPen
 from fontTools.pens.t2CharStringPen import T2CharStringPen
 from fontTools.pens.transformPen import TransformPen
 from fontTools.pens.boundsPen import ControlBoundsPen
+from turkicizer_core import TurkicizerCore
+
+APP_NAME = "Font Turkicizer"
+APP_VERSION = "0.2.0"
+
+def resource_path(*parts):
+    """Return a path that works both from source and from PyInstaller bundles."""
+    base_dir = getattr(sys, "_MEIPASS", os.path.abspath(os.path.dirname(__file__)))
+    return os.path.join(base_dir, *parts)
 
 # --- THEME OVERRIDE: ULTRA-VISIBILITY LIGHT ---
 ctk.set_appearance_mode("Light")
@@ -75,16 +85,36 @@ class FontTurkicizerApp(Tk):
             }
         }
 
-        self.title("Yazı Tipi Türkçeleştirici")
+        self.title(f"{APP_NAME} v{APP_VERSION}")
         self.geometry("1250x980")
         self.resizable(True, True)
         self.configure(fg_color="#ffffff") 
+        self.apply_window_icon()
         
         self.input_paths = []
-        self.output_format = ctk.StringVar(value="WOFF2")
+        self.output_format = ctk.StringVar(value="TTF")
         
         self.after(500, self.init_dnd)
         self.build_ui()
+
+
+def apply_window_icon(self):
+    png_path = resource_path("assets", "icon.png")
+    ico_path = resource_path("assets", "icon.ico")
+
+    try:
+        if os.path.exists(png_path):
+            self._app_icon_image = tk.PhotoImage(file=png_path)
+            self.iconphoto(True, self._app_icon_image)
+    except Exception:
+        pass
+
+    if sys.platform.startswith("win"):
+        try:
+            if os.path.exists(ico_path):
+                self.iconbitmap(ico_path)
+        except Exception:
+            pass
 
     def init_dnd(self):
         try:
@@ -323,38 +353,34 @@ class FontTurkicizerApp(Tk):
             self.status_label.configure(text=self.t("status_error"), text_color="#ff0000")
 
     def inject_turkish_glyphs(self, font):
-        is_cff = 'CFF ' in font or 'CFF2' in font
-        glyph_set = font.getGlyphSet(); hmtx = font['hmtx']; cmap = font['cmap']
-        def map_unicode(name, unicode_val):
-            for table in cmap.tables:
-                if table.isUnicode(): table.cmap[unicode_val] = name
-        def get_glyph_name(unicode_val):
-            for table in cmap.tables:
-                if table.isUnicode() and unicode_val in table.cmap: return table.cmap[unicode_val]
-            return None
-        base_unicodes = {'G': 0x0047, 'g': 0x0067, 'I': 0x0049, 'i': 0x0069, 'S': 0x0053, 's': 0x0073, 'C': 0x0043, 'c': 0x0063, 'O': 0x004F, 'o': 0x006F, 'U': 0x0055, 'u': 0x0075, 'A': 0x0041, 'a': 0x0061, 'E': 0x0045, 'e': 0x0065, 'L': 0x004C}
-        bases = {k: get_glyph_name(v) for k, v in base_unicodes.items()}
-        accent_unicodes = {'breve': 0x02D8, 'dotaccent': 0x02D9, 'cedilla': 0x00B8, 'dieresis': 0x00A8, 'circumflex': 0x005E}
-        accents = {k: get_glyph_name(v) or k for k, v in accent_unicodes.items()}
-        def add_glyph(name, unicode_val, base_key, accent_key=None, custom_logic=None):
-            base_name = bases.get(base_key)
-            if not base_name or base_name not in glyph_set: return
-            if is_cff: self.add_cff_glyph(font, name, unicode_val, base_name, accent_key, accents, custom_logic)
-            else: self.add_glyf_glyph(font, name, unicode_val, base_name, accent_key, accents, custom_logic)
-        injections = [('Gbreve', 0x011E, 'G', 'breve'), ('gbreve', 0x011F, 'g', 'breve'), ('Idotaccent', 0x0130, 'I', 'dotaccent'), ('Scedilla', 0x015E, 'S', 'cedilla'), ('scedilla', 0x015F, 's', 'cedilla'), ('Ccedilla', 0x00C7, 'C', 'cedilla'), ('ccedilla', 0x00E7, 'c', 'cedilla'), ('Odieresis', 0x00D6, 'O', 'dieresis'), ('odieresis', 0x00F6, 'o', 'dieresis'), ('Udieresis', 0x00DC, 'U', 'dieresis'), ('udieresis', 0x00FC, 'u', 'dieresis'), ('Acircumflex', 0x00C2, 'A', 'circumflex'), ('acircumflex', 0x00E2, 'a', 'circumflex'), ('Icircumflex', 0x00CE, 'I', 'circumflex'), ('icircumflex', 0x00EE, 'i', 'circumflex'), ('Ucircumflex', 0x00DB, 'U', 'circumflex'), ('ucircumflex', 0x00FB, 'u', 'circumflex'), ('Ocircumflex', 0x00D4, 'O', 'circumflex'), ('ocircumflex', 0x00F4, 'o', 'circumflex'), ('Ecircumflex', 0x00CA, 'E', 'circumflex'), ('ecircumflex', 0x00EA, 'e', 'circumflex')]
-        for params in injections: add_glyph(*params)
-        if not get_glyph_name(0x0131): add_glyph('idotless', 0x0131, 'i', custom_logic='dotless')
-        lira_unicode = 0x20BA
-        for table in font['cmap'].tables:
-            if lira_unicode in table.cmap: del table.cmap[lira_unicode]
-        add_glyph('uni20BA', lira_unicode, 'L', custom_logic='lira')
+        """Run the shared native-first Turkish glyph engine."""
+        TurkicizerCore().inject_turkish_glyphs(font, log=logging.info)
+
 
     def draw_official_lira(self, pen, font, is_bold=False, is_italic=False):
+        cap_height = 700
         try:
-            cap_height = font['OS/2'].sCapHeight if font['OS/2'].version >= 2 else 700
-            if cap_height <= 0: cap_height = 700
+            if 'OS/2' in font and hasattr(font['OS/2'], 'sCapHeight'):
+                cap_height = font['OS/2'].sCapHeight
+            else:
+                # Fallback: measure H or I
+                glyph_set = font.getGlyphSet()
+                for base in ['H', 'I']:
+                    if base in glyph_set:
+                        cbp = ControlBoundsPen(glyph_set); glyph_set[base].draw(cbp)
+                        if cbp.bounds: cap_height = cbp.bounds[3]; break
+                else: cap_height = font['head'].unitsPerEm * 0.7
+            if cap_height <= 0: cap_height = font['head'].unitsPerEm * 0.7
         except: cap_height = 700
-        scale = cap_height / 455.0; scale_x = 1.2 if is_bold else 1.0; slant = 0.212 if is_italic else 0.0
+        
+        # DYNAMIC SLANT CALCULATION
+        slant = 0.0
+        if is_italic:
+            import math
+            angle = font['post'].italicAngle if 'post' in font else -12
+            slant = math.tan(math.radians(-angle))
+        
+        scale = cap_height / 455.0; scale_x = 1.3 if is_bold else 1.0
         def p(x, y):
             nx = (x - 180) * scale * scale_x; ny = (532 - y) * scale
             return (nx + (slant * ny), ny)

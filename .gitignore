@@ -1,20 +1,53 @@
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class
-.env
-.venv
-env/
+
+# Virtual environments
+.venv/
 venv/
+env/
 ENV/
-.gemini/
+.venv-*/
+.venv-build-linux/
+.venv-win/
+.venv-run/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+*.spec.bak
+
+# PyInstaller
+*.manifest
+*.log
+
+# Local test workspace
+test/
+
+# Generated font outputs
+result_*
+*.generated.*
+*_turkicized.*
+
+# Local debug / scratch
+scratch/
+tmp/
+temp/
+*.tmp
+error.log
+debug.log
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
 .idea/
 .vscode/
-*.font
-*.ttf_turkish
-*.otf_turkish
-*.woff_turkish
-*.woff2_turkish
-output/
-dist/
-build/
-*.egg-info/
+*.swp
+*.swo
+
+# Local env files
+.env
+.env.*
