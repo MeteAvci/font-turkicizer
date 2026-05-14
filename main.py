@@ -98,23 +98,23 @@ class FontTurkicizerApp(Tk):
         self.build_ui()
 
 
-def apply_window_icon(self):
-    png_path = resource_path("assets", "icon.png")
-    ico_path = resource_path("assets", "icon.ico")
+    def apply_window_icon(self):
+        png_path = resource_path("assets", "icon.png")
+        ico_path = resource_path("assets", "icon.ico")
 
-    try:
-        if os.path.exists(png_path):
-            self._app_icon_image = tk.PhotoImage(file=png_path)
-            self.iconphoto(True, self._app_icon_image)
-    except Exception:
-        pass
-
-    if sys.platform.startswith("win"):
         try:
-            if os.path.exists(ico_path):
-                self.iconbitmap(ico_path)
+            if os.path.exists(png_path):
+                self._app_icon_image = tk.PhotoImage(file=png_path)
+                self.iconphoto(True, self._app_icon_image)
         except Exception:
             pass
+
+        if sys.platform.startswith("win"):
+            try:
+                if os.path.exists(ico_path):
+                    self.iconbitmap(ico_path)
+            except Exception:
+                pass
 
     def init_dnd(self):
         try:
